@@ -37,13 +37,13 @@ match_history.append(game_stat3)
 
     
 #append all three games
-'''Checkpoint: print the number of matches played,
-the champion played in the third match,
-the number of deaths in the first match,
-and whether or not the second game was a win.'''
-total_matches = len(match_history) #Calculate the total amount of matches played
-print(f"The champion played in Game III was {match_history[2]["Champion name"]}.") #Find the champion played in game 3
-print(f"You died {match_history[0]["Deaths"]} times in Game I.") #Find the amount of deaths in match 1
-print(f"You won Game II: {match_history[1]["Win"]}") #Truthy/Falsy win in game 2
+'''Checkpoint: Try printing champ played, kills gained, total kills'''
+total_kills = 0
+for match in match_history:
+    total_match = len(match_history)
+    print(f"The champion played in {match["match_id"]} was {match["Champion name"]}")
+    print(f"You got {match["Kills"]} Kills in Match {match["match_id"]}")
+    total_kills = total_kills + match["Kills"]
+print(f"You had {total_kills} Kills in {total_match} matches.")
 
 
