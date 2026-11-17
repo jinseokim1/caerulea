@@ -86,22 +86,27 @@ champion_report(match_history, "Kayn") #Sample test
 
 '''M2'''
 hist = []
-match_id = 0
-valid_roles = ["Top", "Mid", "Jungle", "ADC", "Support"]
-win_loss = ["True", "False"]
+valid_roles = {"top": "Top",
+               "mid": "Mid",
+               "jungle": "Jungle",
+               "adc": "ADC",
+               "support": "Support"
+}
+win_loss = ["true", "false"]
 def add_match(matches): #First function of Milestone 2, adding match history. Use try/except and while Loop to handle exceptions.
         history = {}
         while True:
-                champ_name = input("Champion: ").strip()
+                champ_name = input("Champion: ").strip().title()
                 if champ_name == "":
                     print("Enter a valid Champion Name.")
                     continue
                 break
         while True:
-                role = input("What role did you play? ").strip()
+                role = input("What role did you play? ").strip().lower()
                 if role not in valid_roles:
                     print("Invalid role.")
                     continue
+                role = valid_roles[role]
                 break  
         while True:
             try:
@@ -125,7 +130,7 @@ def add_match(matches): #First function of Milestone 2, adding match history. Us
             break
         while True:
             try:
-                assists = int(input("How many assists did you record ?"))
+                assists = int(input("How many assists did you record? "))
             except ValueError:
                 print("Please enter a valid number.")
                 continue
@@ -135,7 +140,7 @@ def add_match(matches): #First function of Milestone 2, adding match history. Us
             break
         while True:
             try:
-                record = input("Did you win the game? True/False ")
+                record = input("Did you win the game? True/False ").strip().lower()
             except ValueError:
                 print("Please enter True or False.")
                 continue
@@ -144,7 +149,14 @@ def add_match(matches): #First function of Milestone 2, adding match history. Us
                 continue
             break
         #Use try/except and if statements for input validation.
+        #Now create match_id system
+        if len(matches) == 0:
+            matchid = 1
+        else:
+            ids = [match["match_id"] for match in matches] #("Creates list of matches")
+            matchid = max(ids) + 1
         record = record == "True"
+        history["match_id"] = matchid
         history["Champion name"] = champ_name
         history["Role"] = role
         history["Kills"] = kills
@@ -154,7 +166,33 @@ def add_match(matches): #First function of Milestone 2, adding match history. Us
         matches.append(history)
         return matches #returnsfunction
 
+add_match(hist)
+print(hist) #checks the Match ID system.
 
+'''Checkpoint 4'''
+def view_match_history(matches):
+    if len(matches) == 0:
+        print("No matches have been recorded.")
+    else:
+        print("===Match History===")
+        for match in matches:
+            print(f"match ID: #{match["match_id"]}")
+            print(f"Champion: {match["Champion name"]}")
+            print(f"Role: {match["Role"]}")
+            print(f"KDA: {match["Kills"]}/{match["Deaths"]}/{match["Assists"]}")
+            if match["Win"]:
+                result = "Win"
+                print(f"Result: {result}")
+            else:
+                result = "Loss"
+                print(f"Result: {result}")
+view_match_history(hist)
+            
+
+
+            
+
+    
 
 
 
