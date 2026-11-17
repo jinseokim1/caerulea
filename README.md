@@ -19,6 +19,15 @@ A Python project for recording and analyzing League of Legends match performance
 ## Project Status
 
 In development — my first independently designed Python project.
+Implemented (M1)
+- Match history data structure
+- Win-rate and KDA calculations
+- Champion filtering
+- Champion performance reports
+In development (M2)
+- Dynamic match entry
+- Input validation
+- Command-line interface
 
 ## Purpose
 
