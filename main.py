@@ -70,15 +70,19 @@ def calculate_kda(history): #The second function-will calculate Kills/Deaths/Ass
 def filter_by_champion(history, champion): #This third function will remove all other games besides those by a specific Champ name
     matching_games = [] 
     for match in history:
-        if champion == match["Champion name"]:
+        if champion.lower() == match["Champion name"].lower():
             matching_games.append(match)
     return matching_games
-def champion_report(history, champion): #This fourth function will blend the first 3 to create a report by champion. Perhaps in the future I will add statistical reporting
+def champion_report(history, champion): #This fourth function will blend the first 3 to create a report by champion. Perhaps in the future I will add statistical reporting for things such as Role/Class/Subclass type.
     matching_games_list = filter_by_champion(history, champion)
-    win_rate_pct_champ = calculate_winrate(matching_games_list)
-    kda_champ = calculate_kda(matching_games_list) 
-    print(f"Your win rate on {champion} is {win_rate_pct_champ}%.")
-    print(f"Your KDA (Kill Death Assists Ratio) on {champion} is {kda_champ}.")
+    if len(matching_games_list) == 0:
+        print("You have no games on this champion.")
+    else:
+        win_rate_pct_champ = calculate_winrate(matching_games_list)
+        kda_champ = calculate_kda(matching_games_list) 
+        print(f"Your win rate on {champion} is {win_rate_pct_champ:.2f}%.")
+        print(f"Your KDA (Kill Death Assists Ratio) on {champion} is {kda_champ}.")
+champion_report(match_history, "Kayn")
 
 
 
