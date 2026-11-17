@@ -24,6 +24,7 @@ Implemented (M1)
 - Win-rate and KDA calculations
 - Champion filtering
 - Champion performance reports
+
 In development (M2)
 - Dynamic match entry
 - Input validation
