@@ -82,7 +82,84 @@ def champion_report(history, champion): #This fourth function will blend the fir
         kda_champ = calculate_kda(matching_games_list) 
         print(f"Your win rate on {champion} is {win_rate_pct_champ:.2f}%.")
         print(f"Your KDA (Kill Death Assists Ratio) on {champion} is {kda_champ}.")
-champion_report(match_history, "Kayn")
+champion_report(match_history, "Kayn") #Sample test
+
+'''M2'''
+hist = []
+match_id = 0
+valid_roles = ["Top", "Mid", "Jungle", "ADC", "Support"]
+win_loss = ["True", "False"]
+def add_match(matches): #First function of Milestone 2, adding match history. Use try/except and while Loop to handle exceptions.
+        history = {}
+        while True:
+                champ_name = input("Champion: ").strip()
+                if champ_name == "":
+                    print("Enter a valid Champion Name.")
+                    continue
+                break
+        while True:
+                role = input("What role did you play? ").strip()
+                if role not in valid_roles:
+                    print("Invalid role.")
+                    continue
+                break  
+        while True:
+            try:
+                kills = int(input("How many kills did you record? "))
+            except ValueError:
+                print("Please enter a valid number.")
+                continue
+            if kills < 0:
+                print("Kills can not be negative.")
+                continue
+            break
+        while True:
+            try:
+                deaths = int(input("How many times did you die? "))
+            except ValueError:
+                print("Please enter a valid number.")
+                continue
+            if deaths < 0:
+                print("Deaths can not be negative.")
+                continue
+            break
+        while True:
+            try:
+                assists = int(input("How many assists did you record ?"))
+            except ValueError:
+                print("Please enter a valid number.")
+                continue
+            if assists < 0:
+                print("Assists can not be negative.")
+                continue
+            break
+        while True:
+            try:
+                record = input("Did you win the game? True/False ")
+            except ValueError:
+                print("Please enter True or False.")
+                continue
+            if record not in win_loss:
+                print("Please enter True or False.")
+                continue
+            break
+        #Use try/except and if statements for input validation.
+        record = record == "True"
+        history["Champion name"] = champ_name
+        history["Role"] = role
+        history["Kills"] = kills
+        history["Deaths"] = deaths
+        history["Assists"] = assists
+        history["Win"] = record #Updates dictionary
+        matches.append(history)
+        return matches #returnsfunction
+
+
+
+
+
+
+
 
 
 
