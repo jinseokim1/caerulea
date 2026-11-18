@@ -47,7 +47,10 @@ def champion_report(history, champion): #This fourth function will blend the fir
         win_rate_pct_champ = calculate_winrate(matching_games_list)
         kda_champ = calculate_kda(matching_games_list) 
         print(f"Your win rate on {champion} is {win_rate_pct_champ:.2f}%.")
-        print(f"Your KDA (Kill Death Assists Ratio) on {champion} is {kda_champ:.2f}.")
+        if isinstance(kda_champ, str):
+            print(f"Your KDA (Kill Death Assists Ratio) on {champion} is {kda_champ}.")
+        else:
+            print(f"Your KDA (Kill Death Assists Ratio) on {champion} is {kda_champ:.2f}.")
 #Sample test
 
 '''M2'''
@@ -195,8 +198,9 @@ def main_menu(matches):
             continue
 main_menu(hist)
 
-'''M2 checkpoint IV done! connected all main menu options and confirmed they work.
-Caerulea now has a functional command line interface. Final integration testing left'''
+'''M2 done! connected all main menu options and confirmed they work.
+Caerulea now has a functional command line interface. Final integration testing done. Now
+starting on M3'''
         
 
 
