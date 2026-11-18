@@ -168,13 +168,14 @@ def overall_report(matches):
 #Remember hist = [] is the sample 
 
 def main_menu(matches):
-    choices = [1, 2, 3, 4, 5]
+    choices = [1, 2, 3, 4, 5, 6]
     while True:
         print("1. Add a match")
         print("2. View Match History")
         print("3. View Champion Report")
         print("4. View Overall Statistics")
-        print("5. Exit")
+        print("5. View Statistical Report")
+        print("6. Exit")
         try:
             menu = int(input("Enter your choice: "))
         except ValueError:
@@ -192,12 +193,16 @@ def main_menu(matches):
         elif menu == 4:
             overall_report(matches) 
         elif menu == 5:
-            print("Thank you!")
-            break
+            statistical_report(matches)
+        elif menu == 6:
+            validate = input("Are you sure? Y for confirmation. ").strip().lower()
+            if validate == "y":
+                break
+            if validate != "y":
+                continue
         elif menu not in choices:
             print("Invalid Choice.")
             continue
-main_menu(hist)
 
 '''M2 done! connected all main menu options and confirmed they work.
 Caerulea now has a functional command line interface. Final integration testing done. Now
@@ -285,24 +290,33 @@ def recent_performance(matches, n):
     return summary
 from sample_data import sample_matches 
 #Sample data from a sample.py 100 games to test this
-print(recent_performance(sample_matches, 3)) 
-print(recent_performance(sample_matches, 20))
-print(recent_performance(sample_matches, 100))
 
 #Checkpoint V: statistical summary report. create function that puts it all together.
 def statistical_report(matches):
         if len(matches) == 0:
-            print("There are no matches to record.")
-        print(f"Overall Win Rate: {calculate_winrate(matches):.2f}")
-        print(f"Average Kills: {calculate_averages(matches)[0]:.2f} Kills Per Game.")
-        print(f"Average Deaths: {calculate_averages(matches)[1]:.2f} Deaths Per Game.")
-        print(f"Average Assists: {calculate_averages(matches)[2]:.2f} Assists Per Game.")
-        if calculate_kda(matches) == "Perfect": #build failsafe for input
-            print(f"Overall KDA: {calculate_kda(matches)}")
+            nothing = print("There are no matches to record.")
+            return nothing
+        print(f"Total matches played: {len(matches)}")
+        print(f"Overall Win Rate: {calculate_winrate(matches):.2f}%")
+        (a, b, c) = calculate_averages(matches)
+        print(f"Average Kills: {a:.2f} Kills Per Game.")
+        print(f"Average Deaths: {b:.2f} Deaths Per Game.")
+        print(f"Average Assists: {c:.2f} Assists Per Game.")
+        j = calculate_kda(matches) 
+        if j == "Perfect": #build failsafe for input
+            print(f"Overall KDA: {j}")
         else:
-            print(f"Overall KDA: {calculate_kda(matches):.2f}")
-        #checkpoint will return and continue
+            print(f"Overall KDA: {j:.2f}")
+        (d, e, f, g, h, i) = find_performance_extremes(matches) #use variables here and line 304 as well as 299 to store values and only call function once. Learning/implenting code effiency.
+        print(f"Most Kills in a game: {d["Kills"]}-{d["Champion name"]} (Match {d["match_id"]})")
+        print(f"Least Kills in a game: {e["Kills"]}-{e["Champion name"]} (Match {e["match_id"]})")
+        print(f"Most Deaths in a game: {f["Deaths"]}-{f["Champion name"]} (Match {f["match_id"]})")
+        print(f"Least Deaths in a game: {g["Deaths"]}-{g["Champion name"]} (Match {g["match_id"]})")
+        print(f"Most Assists in a game: {h["Assists"]}-{h["Champion name"]} (Match {h["match_id"]})")
+        print(f"Least Assists in a game: {i["Assists"]}-{i["Champion name"]} (Match {i["match_id"]})")
+'''M3 Complete-basic statistical analysis complete, should test code and commit'''
 
+main_menu(sample_matches) #Check finished
 
    
     
