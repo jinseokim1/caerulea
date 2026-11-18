@@ -1,5 +1,6 @@
 '''Caerulea main.py-functions for winrate kda and champion filtering, as well
 as functional main menu CUI.'''
+
 def calculate_winrate(history): #The first function-will calculate winrate.
     wins = 0
     loss = 0
@@ -216,7 +217,7 @@ def calculate_averages(matches):
         avg_kills = total_kills / len(matches)
         avg_deaths = total_deaths / len(matches)
         avg_assists = total_assists / len(matches)
-        total_avg = (f"{avg_kills:.2f}", f"{avg_deaths:.2f}", f"{avg_assists:.2f}")
+        total_avg = (avg_kills, avg_deaths, avg_assists)
         return total_avg #Return total_avg as a tuple
 #Function based on average takedowns/kill involvement
 def calculate_avg_takedowns(matches):
@@ -257,7 +258,40 @@ def find_performance_extremes(matches):
 calculate average kills, deaths, assists, calculate average takedowns, and find performance extremes.
 Will continue with the last 2 parts of M3-Recent Match Performance and Statistical Summary Report.'''
 
-#
+#Next function: this will let users analyze their last N games.
+def recent_performance(matches, n):
+    if n <= 0 or len(matches) == 0:
+        return {
+        "matches": 0,
+        "winrate": 0,
+        "avg_kills": 0,
+        "avg_deaths": 0,
+        "avg_assists": 0,
+        "kda": 0
+    }
+    recent_matches = matches[-n:]
+    amt_matches = len(recent_matches)
+    amt_kills, amt_deaths, amt_assists = calculate_averages(recent_matches) 
+    amt_winrate = calculate_winrate(recent_matches) 
+    amt_kda = calculate_kda(recent_matches)
+    summary = {
+        "matches": amt_matches,
+        "winrate": amt_winrate,
+        "avg_kills": amt_kills,
+        "avg_deaths": amt_deaths,
+        "avg_assists": amt_assists,
+        "kda": amt_kda
+    }
+    return summary
+from sample_data import sample_matches 
+#Sample data from a sample.py 100 games to test this
+print(recent_performance(sample_matches, 3)) 
+print(recent_performance(sample_matches, 20))
+print(recent_performance(sample_matches, 100))
+   
+    
+
+        
 
         
 
