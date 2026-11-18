@@ -288,6 +288,22 @@ from sample_data import sample_matches
 print(recent_performance(sample_matches, 3)) 
 print(recent_performance(sample_matches, 20))
 print(recent_performance(sample_matches, 100))
+
+#Checkpoint V: statistical summary report. create function that puts it all together.
+def statistical_report(matches):
+        if len(matches) == 0:
+            print("There are no matches to record.")
+        print(f"Overall Win Rate: {calculate_winrate(matches):.2f}")
+        print(f"Average Kills: {calculate_averages(matches)[0]:.2f} Kills Per Game.")
+        print(f"Average Deaths: {calculate_averages(matches)[1]:.2f} Deaths Per Game.")
+        print(f"Average Assists: {calculate_averages(matches)[2]:.2f} Assists Per Game.")
+        if calculate_kda(matches) == "Perfect": #build failsafe for input
+            print(f"Overall KDA: {calculate_kda(matches)}")
+        else:
+            print(f"Overall KDA: {calculate_kda(matches):.2f}")
+        #checkpoint will return and continue
+
+
    
     
 
