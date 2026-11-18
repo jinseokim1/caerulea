@@ -201,7 +201,69 @@ main_menu(hist)
 '''M2 done! connected all main menu options and confirmed they work.
 Caerulea now has a functional command line interface. Final integration testing done. Now
 starting on M3'''
+#Now make function based on average kills deaths assists
+def calculate_averages(matches):
+    total_kills = 0
+    total_deaths = 0
+    total_assists = 0
+    if len(matches) == 0:
+            return(0,0,0)
+    else:
+        for match in matches:
+            total_kills = match["Kills"] + total_kills
+            total_deaths = match["Deaths"] + total_deaths
+            total_assists = match["Assists"] + total_assists
+        avg_kills = total_kills / len(matches)
+        avg_deaths = total_deaths / len(matches)
+        avg_assists = total_assists / len(matches)
+        total_avg = (f"{avg_kills:.2f}", f"{avg_deaths:.2f}", f"{avg_assists:.2f}")
+        return total_avg #Return total_avg as a tuple
+#Function based on average takedowns/kill involvement
+def calculate_avg_takedowns(matches):
+    total_takedowns = 0
+    if len(matches) == 0:
+        return 0
+    for match in matches:
+        total_takedowns = match["Kills"] + match["Assists"] + total_takedowns
+    total_takedowns_avg = total_takedowns / len(matches)
+    total_takedowns_avg = float(f"{total_takedowns_avg}")
+    return total_takedowns_avg
+#Function based on performance extremes-retrieve the best and worst games.
+def find_performance_extremes(matches):
+    if len(matches) == 0:
+            return (None, None, None, None, None, None)
+    else:
+        most_kills = matches[0]
+        least_kills = matches[0]
+        most_deaths = matches[0]
+        least_deaths = matches[0]
+        most_assists = matches[0]
+        least_assists = matches[0]
+        for match in matches:
+            if match["Kills"] > most_kills["Kills"]:
+                most_kills = match
+            if match["Kills"] < least_kills["Kills"]:
+                least_kills = match
+            if match["Deaths"] > most_deaths["Deaths"]:
+                most_deaths = match
+            if match["Deaths"] < least_deaths["Deaths"]:
+                least_deaths = match
+            if match["Assists"] > most_assists["Assists"]:
+                most_assists = match
+            if match["Assists"] < least_assists["Assists"]:
+                least_assists = match
+        return(most_kills, least_kills, most_deaths, least_deaths, most_assists, least_assists)
+'''Checkpoint I-III finished. 3 statistic calculation functions done-
+calculate average kills, deaths, assists, calculate average takedowns, and find performance extremes.
+Will continue with the last 2 parts of M3-Recent Match Performance and Statistical Summary Report.'''
+
+#
+
         
+
+
+
+
 
 
 
