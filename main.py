@@ -176,7 +176,7 @@ def overall_report(matches):
 
 
 def main_menu(matches):
-    choices = [1, 2, 3, 4, 5, 6, 7]
+    choices = [1, 2, 3, 4, 5, 6, 7, 8]
     while True:
         print("1. Add a match")
         print("2. View Match History")
@@ -185,6 +185,7 @@ def main_menu(matches):
         print("5. View Statistical Report")
         print("6. Exit")
         print("7. Export Match History to CSV")
+        print("8. Remove a match")
         try:
             menu = int(input("Enter your choice: "))
         except ValueError:
@@ -213,6 +214,18 @@ def main_menu(matches):
         elif menu == 7:
             export_matches_csv(matches, "matches.csv")
             print("Match history exported successfully.")
+        elif menu == 8:
+            try:
+                remove = int(input("Enter the match ID to delete: "))
+                deleted = delete_match(matches, remove)
+                if deleted == True:
+                    print("Match removed successfully.")
+                if deleted == False:
+                    print("Match could not be found.")
+            except ValueError:
+                print("Invalid match ID.")
+                continue
+
         elif menu not in choices:
             print("Invalid Choice.")
             continue
@@ -329,6 +342,14 @@ def statistical_report(matches):
         print(f"Most Assists in a game: {h["Assists"]}-{h["Champion name"]} (Match {h["match_id"]})")
         print(f"Least Assists in a game: {i["Assists"]}-{i["Champion name"]} (Match {i["match_id"]})")
 '''M3 Complete-basic statistical analysis complete, should test code and commit'''
+'''Create function to delete matches'''
+def delete_match(matches, match_id):
+    for match in matches:
+        if match["match_id"] == match_id:
+            matches.remove(match)
+            return True
+    return False
+    
 
 matches = load_matches("matches.json")
 if matches is not None:
