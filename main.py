@@ -1,5 +1,12 @@
 '''Caerulea main.py-functions for winrate kda and champion filtering, as well
 as functional main menu CUI.'''
+#JSON/CSV functionality
+import json
+import csv
+from json_util import save_matches, load_matches
+from json_util import export_matches_csv
+
+
 
 def calculate_winrate(history): #The first function-will calculate winrate.
     wins = 0
@@ -167,8 +174,9 @@ def overall_report(matches):
 '''Checkpoint 5: Main menu function'''
 #Remember hist = [] is the sample 
 
+
 def main_menu(matches):
-    choices = [1, 2, 3, 4, 5, 6]
+    choices = [1, 2, 3, 4, 5, 6, 7]
     while True:
         print("1. Add a match")
         print("2. View Match History")
@@ -176,6 +184,7 @@ def main_menu(matches):
         print("4. View Overall Statistics")
         print("5. View Statistical Report")
         print("6. Exit")
+        print("7. Export Match History to CSV")
         try:
             menu = int(input("Enter your choice: "))
         except ValueError:
@@ -197,12 +206,17 @@ def main_menu(matches):
         elif menu == 6:
             validate = input("Are you sure? Y for confirmation. ").strip().lower()
             if validate == "y":
+                save_matches(matches, "matches.json")
                 break
             if validate != "y":
                 continue
+        elif menu == 7:
+            export_matches_csv(matches, "matches.csv")
+            print("Match history exported successfully.")
         elif menu not in choices:
             print("Invalid Choice.")
             continue
+
 
 '''M2 done! connected all main menu options and confirmed they work.
 Caerulea now has a functional command line interface. Final integration testing done. Now
@@ -316,7 +330,10 @@ def statistical_report(matches):
         print(f"Least Assists in a game: {i["Assists"]}-{i["Champion name"]} (Match {i["match_id"]})")
 '''M3 Complete-basic statistical analysis complete, should test code and commit'''
 
-main_menu(sample_matches) #Check finished
+matches = load_matches("matches.json")
+if matches is not None:
+    main_menu(matches)
+
 
    
     

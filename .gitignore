@@ -1,2 +1,12 @@
 __pycache__/
 *.pyc
+# Generated CSV exports
+matches.csv
+
+# JSON practice files
+json_practice.py
+practice_json_sample_matches.json
+corrupted.json
+matches.csv
+matches.json
+
